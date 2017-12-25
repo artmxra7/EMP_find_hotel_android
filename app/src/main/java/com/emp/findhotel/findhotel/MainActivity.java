@@ -14,7 +14,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
+import java.util.concurrent.ExecutionException;
+
 public class MainActivity extends AppCompatActivity {
+
+    public static String data;
 
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(tab.getPosition());
             }
         });
+
     }
 
     private class CustomAdapter extends FragmentPagerAdapter {
@@ -111,4 +116,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
 }
