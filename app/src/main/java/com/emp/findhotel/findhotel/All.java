@@ -33,11 +33,16 @@ import java.util.HashMap;
 public class All extends Fragment {
 
     private String[] sort_items = {"Expensive first", "Cheap first", "Low rate", "High rate"};
+    private String[] countries;
     private Spinner sort_spinner;
     private Spinner drzava_spiner;
     private ListView hoteli;
     private ArrayList<HashMap<String, String>> data = null;
     private RequestQueue requestQueue;
+    private JsonArrayRequest request;
+
+    private String country = "All";
+    private String sort = "None";
 
     @Nullable
     @Override
@@ -65,15 +70,80 @@ public class All extends Fragment {
             }
         });
 
-
+        // Creates a new JSON request to the server API
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url = "http://83.212.82.49/api/";
-        JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
+        String url = "http://83.212.82.49/api?country=" + country + "&sort=" + sort;
+        request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
         requestQueue.add(request);
+
+
+        url = "http://83.212.82.49/api/countries";
+        request = new JsonArrayRequest(url, jsonCountryArrayListener, errorListener);
+        requestQueue.add(request);
+
+        drzava_spiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (view != null) {
+                    country = countries[i];
+                    String url = "http://83.212.82.49/api?country=" + country + "&sort=" + sort;
+                    request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
+                    requestQueue.add(request);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        sort_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (view != null) {
+                    sort = sort_items[i].replace(" ", "");
+                    String url = "http://83.212.82.49/api?country=" + country + "&sort=" + sort;
+                    request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
+                    requestQueue.add(request);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         return v;
     }
 
+    // What happens when the server responds
+    private Response.Listener<JSONArray> jsonCountryArrayListener = new Response.Listener<JSONArray>() {
+        @Override
+        public void onResponse(JSONArray response) {
+
+            countries = new String[response.length() + 1];
+            countries[0] = "All";
+            for (int i = 0; i < response.length(); i++) {
+                try {
+                    JSONObject jsonObject = response.getJSONObject(i);
+                    String country = jsonObject.getString("name");
+                    countries[i + 1] = country;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return;
+                }
+
+                ArrayAdapter<String> drzavaAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, countries);
+                drzavaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                drzava_spiner.setAdapter(drzavaAdapter);
+            }
+        }
+    };
+
+    // What happens when the server responds
     private Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
@@ -102,6 +172,7 @@ public class All extends Fragment {
         }
     };
 
+    // What happens if error occurs
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
@@ -109,39 +180,4 @@ public class All extends Fragment {
         }
     };
 
-
-
-/*
-    public ArrayList<HashMap<String, String>> parseJSON(){
-        ArrayList<HashMap<String, String>> data = new ArrayList<>();
-        try {
-            JSONObject jsonObject = new JSONObject(MainActivity.data);
-            JSONArray jsonArray = jsonObject.getJSONArray("hotels");
-            JSONObject object;
-            String name;
-            HashMap<String, String> map;
-            for (int i = 0; i < jsonArray.length(); i++){
-                 map = new HashMap<>();
-                 object = jsonArray.getJSONObject(i);
-                 // id = object.getString("id");
-                 name = object.getString("name");
-                 map.put("name", name);
-                 data.add(map);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
-
-    public void createList(){
-        MainActivity.setData();
-        data = parseJSON();
-
-        SimpleAdapter adapter = new SimpleAdapter(getActivity().getApplicationContext(),
-                data, R.layout.list_layout, new String[]{"name", "info"},
-                new int[]{R.id.textViewName, R.id.textViewInfo});
-        hoteli.setAdapter(adapter);
-    }
-*/
 }
