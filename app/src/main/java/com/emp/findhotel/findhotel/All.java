@@ -1,5 +1,6 @@
 package com.emp.findhotel.findhotel;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -44,6 +44,11 @@ public class All extends Fragment {
     private String country = "All";
     private String sort = "None";
 
+    static String ime;
+    static float ocena;
+    static String opis;
+    static String naslov;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -59,16 +64,9 @@ public class All extends Fragment {
         //nato na isti postopek kot pri sort_spinner nastavimo elemente v drzava_spinner
         drzava_spiner = (Spinner) v.findViewById(R.id.drzava);
 
-        //http://www.parallelcodes.com/android-listview-from-ms-sql-server/
         //preko poizvedbe prebereva vse hotele, preko  while(query.next()) dobiva vse vrstice in jih vstaviva v ListView (ime hotela, rating, cena)
         //ko klikneš na hotel iz ListViewa se odpre okno oz. razred Reserve
         hoteli = (ListView) v.findViewById(R.id.vsihoteli);
-        hoteli.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                System.out.println(data.get(i));
-            }
-        });
 
         // Creates a new JSON request to the server API
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
@@ -116,6 +114,21 @@ public class All extends Fragment {
             }
         });
 
+        //ko izberemo nekaj iz listViewa
+        hoteli.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //System.out.println(data.get(i));
+                ime = data.get(i).get("name");
+                naslov = data.get(i).get("address");
+                ocena = Float.parseFloat(data.get(i).get("rating"));
+                opis = data.get(i).get("description");
+
+                Intent intent = new Intent(getActivity(), Reserve.class);
+                startActivity(intent);
+            }
+        });
+
         return v;
     }
 
@@ -152,12 +165,16 @@ public class All extends Fragment {
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     String name = jsonObject.getString("name");
-                    String id = jsonObject.getString("id");
+                    String price = jsonObject.getString("price") + "€+";
                     String rating = jsonObject.getString("rating");
+                    String description = jsonObject.getString("description");
+                    String address = jsonObject.getString("address");
                     HashMap<String, String> map = new HashMap<>();
                     map.put("name", name);
-                    map.put("id", id);
+                    map.put("price", price);
                     map.put("rating", rating);
+                    map.put("desciption", description);
+                    map.put("address", address);
                     data.add(map);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -166,8 +183,8 @@ public class All extends Fragment {
             }
 
             SimpleAdapter adapter = new SimpleAdapter(getActivity().getApplicationContext(),
-                    data, R.layout.list_layout, new String[]{"name", "id"},
-                    new int[]{R.id.textViewName, R.id.textViewInfo});
+                    data, R.layout.list_layout, new String[]{"name", "rating", "price"},
+                    new int[]{R.id.textViewName, R.id.textViewRating, R.id.textViewPrice});
             hoteli.setAdapter(adapter);
         }
     };

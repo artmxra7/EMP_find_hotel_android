@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public static String data;
 
     TabLayout tabLayout;
-    ViewPager viewPager;
+    static ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(tab.getPosition());
             }
         });
-
     }
 
     private class CustomAdapter extends FragmentPagerAdapter {

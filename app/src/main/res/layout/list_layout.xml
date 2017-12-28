@@ -7,14 +7,23 @@
 
     <TextView
         android:id="@+id/textViewName"
-        android:layout_width="50dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/textViewInfo"
-        android:layout_width="150dp"
+        android:id="@+id/textViewRating"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textViewPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textSize="20dp" />
 
 </LinearLayout>

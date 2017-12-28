@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="513dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="20dp"
         tools:layout_editor_absoluteY="-2dp">
@@ -28,7 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="imehotela" />
+                android:text="imehotela"
+                android:textSize="17dp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -40,7 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="lokacija" />
+                android:text="lokacija"
+                android:textSize="17dp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -54,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
                 android:numStars="5"
-                android:stepSize="0.1" />
+                android:stepSize="0.1"
+                android:theme="@style/RatingBar" />
 
         </LinearLayout>
 
@@ -100,7 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="From" />
+                android:text="From"
+                android:background="@color/colorPrimary" />
 
             <Space
                 android:layout_width="50dp"
@@ -111,12 +115,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="To" />
+                android:text="To"
+                android:background="@color/colorPrimary" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="39dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -124,7 +129,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textSize="17dp" />
 
             <Space
                 android:layout_width="50dp"
@@ -135,7 +141,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textSize="17dp" />
         </LinearLayout>
 
         <Space
@@ -144,7 +151,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="187dp"
+            android:layout_height="148dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -163,7 +170,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="ponudbasobe" />
+                android:text="ponudbasobe"
+                android:textSize="13dp" />
         </LinearLayout>
 
         <Space
@@ -180,13 +188,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="cena"
+                android:textSize="20dp"
                 android:gravity="center"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
 
             <Button
                 android:id="@+id/complete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Complete" />
+                android:text="Complete"
+                android:background="@color/colorPrimary" />
         </LinearLayout>
 
     </LinearLayout>

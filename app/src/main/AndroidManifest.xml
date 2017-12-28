@@ -23,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Reserve"></activity>
+        <activity android:name=".Complete"></activity>
     </application>
 
 </manifest>
