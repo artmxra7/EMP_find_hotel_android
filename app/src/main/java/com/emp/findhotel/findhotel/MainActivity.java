@@ -19,9 +19,14 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     public static String data;
+    public static boolean iskanje = false;
+    public static String iskanihotel;
 
     TabLayout tabLayout;
     static ViewPager viewPager;
+    Fragment home = new Home();
+    Fragment all = new All();
+    Fragment near = new Near();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                iskanje = false;
+                getSupportFragmentManager().beginTransaction().detach(all).attach(all).commit();
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -74,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position){
-                case 0: return new Home();
-                case 1: return new All();
-                case 2: return new Near();
+                case 0: return home;
+                case 1: return all;
+                case 2: return near;
                 default: return null;
             }
         }
@@ -100,11 +107,14 @@ public class MainActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.menuSearch);
         SearchView searchView = (SearchView)item.getActionView();
 
-        //tukaj spremenimo v onConfirmed oz. da se prikaže  ko potrdimo vnos
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                return false;
+                iskanje = true;
+                iskanihotel = s;
+                getSupportFragmentManager().beginTransaction().detach(all).attach(all).commit();
+                viewPager.setCurrentItem(1);
+                return true;
             }
 
             @Override
@@ -115,5 +125,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
 }

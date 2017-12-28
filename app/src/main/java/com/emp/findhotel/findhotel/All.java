@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +21,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.Tasks;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -170,12 +175,22 @@ public class All extends Fragment {
                     String description = jsonObject.getString("description");
                     String address = jsonObject.getString("address");
                     HashMap<String, String> map = new HashMap<>();
-                    map.put("name", name);
-                    map.put("price", price);
-                    map.put("rating", rating);
-                    map.put("desciption", description);
-                    map.put("address", address);
-                    data.add(map);
+                    if(MainActivity.iskanje && MainActivity.iskanihotel != "" && name.toLowerCase().contains(MainActivity.iskanihotel.toLowerCase())) {
+                        map.put("name", name);
+                        map.put("price", price);
+                        map.put("rating", rating);
+                        map.put("desciption", description);
+                        map.put("address", address);
+                        data.add(map);
+                    }
+                    else if (MainActivity.iskanje == false){
+                        map.put("name", name);
+                        map.put("price", price);
+                        map.put("rating", rating);
+                        map.put("desciption", description);
+                        map.put("address", address);
+                        data.add(map);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     return;
