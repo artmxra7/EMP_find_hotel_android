@@ -191,8 +191,13 @@ public class Complete extends AppCompatActivity {
                             {
                                 @Override
                                 public void onResponse(String response) {
-                                    Toast.makeText(getApplication().getBaseContext(), "Success", Toast.LENGTH_SHORT).show();
-                                    goHome();
+                                    if (response.equals("OK")){
+                                        Toast.makeText(getApplication().getBaseContext(), "Success", Toast.LENGTH_SHORT).show();
+                                        goHome();
+                                    } else if (response.equals("ERROR")){
+                                        Toast.makeText(getApplication().getBaseContext(), "Room already reserved", Toast.LENGTH_SHORT).show();
+                                    }
+
                                     Log.d("Response", response);
                                 }
                             },
@@ -217,7 +222,7 @@ public class Complete extends AppCompatActivity {
 
                 }
                 else{
-                    Toast.makeText(getApplication().getBaseContext(), "Dates or room not chosen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication().getBaseContext(), "Choose dates", Toast.LENGTH_SHORT).show();
                 }
             }
         });

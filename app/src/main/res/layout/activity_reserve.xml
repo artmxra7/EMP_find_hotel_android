@@ -60,78 +60,88 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:orientation="horizontal">
+            android:layout_height="303dp">
 
-            <ImageView
-                android:id="@+id/slika1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                 />
-
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:id="@+id/slika2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="208dp"
-            android:orientation="vertical">
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
-
-            <TextView
-                android:id="@+id/opis"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="opis"
-                android:textSize="13dp" />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
+                    <ImageView
+                        android:id="@+id/slika1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+                    <Space
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content" />
 
-            <ImageSwitcher
-                android:id="@+id/ponudbaslike"
-                android:layout_width="456dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/slika2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
 
-            </ImageSwitcher>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
 
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <Button
-                android:id="@+id/naslednjaslika"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:text="What we offer" />
+                    <TextView
+                        android:id="@+id/opis"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="opis"
+                        android:textSize="13dp" />
 
-        </LinearLayout>
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <ImageSwitcher
+                        android:id="@+id/ponudbaslike"
+                        android:layout_width="456dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </ImageSwitcher>
+
+                    <Space
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent" />
+
+                    <Button
+                        android:id="@+id/naslednjaslika"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimary"
+                        android:text="What we offer" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
 
         <Space
             android:layout_width="match_parent"
