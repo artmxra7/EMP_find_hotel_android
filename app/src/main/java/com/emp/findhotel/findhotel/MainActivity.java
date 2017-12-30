@@ -55,13 +55,15 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                iskanje = false;
-                getSupportFragmentManager().beginTransaction().detach(all).attach(all).commit();
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                if(tab.getPosition() == 1 && iskanje){
+                    iskanje = false;
+                    getSupportFragmentManager().beginTransaction().detach(all).attach(all).commit();
+                }
                 viewPager.setCurrentItem(tab.getPosition());
             }
 

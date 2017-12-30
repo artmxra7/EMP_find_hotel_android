@@ -52,7 +52,9 @@ public class All extends Fragment {
     static String ime;
     static float ocena;
     static String opis;
+    static String img1, img2;
     static String naslov;
+    static int hotelID;
 
     @Nullable
     @Override
@@ -128,6 +130,9 @@ public class All extends Fragment {
                 naslov = data.get(i).get("address");
                 ocena = Float.parseFloat(data.get(i).get("rating"));
                 opis = data.get(i).get("description");
+                img1 = data.get(i).get("img1");
+                img2 = data.get(i).get("img2");
+                hotelID =  Integer.parseInt(data.get(i).get("id"));
 
                 Intent intent = new Intent(getActivity(), Reserve.class);
                 startActivity(intent);
@@ -174,21 +179,30 @@ public class All extends Fragment {
                     String rating = jsonObject.getString("rating");
                     String description = jsonObject.getString("description");
                     String address = jsonObject.getString("address");
+                    String img1 = jsonObject.getString("img1");
+                    String img2 = jsonObject.getString("img2");
+                    String id = jsonObject.getString("id");
                     HashMap<String, String> map = new HashMap<>();
                     if(MainActivity.iskanje && MainActivity.iskanihotel != "" && name.toLowerCase().contains(MainActivity.iskanihotel.toLowerCase())) {
                         map.put("name", name);
                         map.put("price", price);
                         map.put("rating", rating);
-                        map.put("desciption", description);
+                        map.put("description", description);
                         map.put("address", address);
+                        map.put("img1", img1);
+                        map.put("img2", img2);
+                        map.put("id", id);
                         data.add(map);
                     }
                     else if (MainActivity.iskanje == false){
                         map.put("name", name);
                         map.put("price", price);
                         map.put("rating", rating);
-                        map.put("desciption", description);
+                        map.put("description", description);
                         map.put("address", address);
+                        map.put("img1", img1);
+                        map.put("img2", img2);
+                        map.put("id", id);
                         data.add(map);
                     }
                 } catch (JSONException e) {
