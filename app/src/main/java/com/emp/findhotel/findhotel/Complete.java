@@ -27,11 +27,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -41,6 +44,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Luka on 22. 12. 2017.
@@ -67,6 +71,7 @@ public class Complete extends AppCompatActivity {
 
     private String rooms[];
     private int roomID;
+    private String datumod, datumdo;
 
     @Nullable
     @Override
@@ -142,7 +147,7 @@ public class Complete extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int leto, int mesec, int dan) {
                 mesec = mesec + 1; //januar = 0, mora biti 1
                 Log.d("TAG","onDateSet: dd.mm.yyyy: " + dan +"." + mesec +"." + leto);
-                String datumod = dan + "." + mesec + "." + leto; //ta string lahko zapišemo v bazo za datum
+                datumod = dan + "." + mesec + "." + leto; //ta string lahko zapišemo v bazo za datum
                 datum_od.setText(datumod);
             }
         };
@@ -169,7 +174,7 @@ public class Complete extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int leto, int mesec, int dan) {
                 mesec = mesec + 1;
                 Log.d("TAG","onDateSet: dd.mm.yyyy: " + dan +"." + mesec +"." + leto);
-                String datumdo = dan + "." + mesec + "." + leto; //ta string lahko zapišemo v bazo za datum
+                datumdo = dan + "." + mesec + "." + leto; //ta string lahko zapišemo v bazo za datum
                 datum_do.setText(datumdo);
             }
         };
@@ -179,8 +184,37 @@ public class Complete extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (datum_do.getText().length() != 0 && datum_do.getText().length() != 0) {
-                    //zapiši va bazo (flag), da se je rezervirala soba
-                    goHome();
+                    String url = "http://83.212.82.49/api/reserve?room=" + roomID +
+                            "&dateFrom=" + datumod + "&dateTo=" + datumdo;
+                    StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                            new Response.Listener<String>()
+                            {
+                                @Override
+                                public void onResponse(String response) {
+                                    Toast.makeText(getApplication().getBaseContext(), "Success", Toast.LENGTH_SHORT).show();
+                                    goHome();
+                                    Log.d("Response", response);
+                                }
+                            },
+                            new Response.ErrorListener()
+                            {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // error
+                                    Toast.makeText(getApplication().getBaseContext(), "Error", Toast.LENGTH_SHORT).show();
+                                    Log.d("Error.Response", error.toString());
+                                }
+                            }
+                    ) {
+                        @Override
+                        protected Map<String, String> getParams()
+                        {
+                            Map<String, String>  params = new HashMap<String, String>();
+                            return params;
+                        }
+                    };
+                    requestQueue.add(postRequest);
+
                 }
                 else{
                     Toast.makeText(getApplication().getBaseContext(), "Dates or room not chosen", Toast.LENGTH_SHORT).show();
@@ -273,6 +307,7 @@ public class Complete extends AppCompatActivity {
             slikasobe.setImageBitmap(scaled);
         }
     };
+
 
 
 }
