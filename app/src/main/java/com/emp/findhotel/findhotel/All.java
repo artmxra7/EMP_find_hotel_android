@@ -54,6 +54,7 @@ public class All extends Fragment {
     static String opis;
     static String img1, img2;
     static String naslov;
+    static int parkirni, wifi, zivali, hrana, telovadba;
     static int hotelID;
 
     @Nullable
@@ -133,6 +134,11 @@ public class All extends Fragment {
                 img1 = data.get(i).get("img1");
                 img2 = data.get(i).get("img2");
                 hotelID =  Integer.parseInt(data.get(i).get("id"));
+                wifi =  Integer.parseInt(data.get(i).get("wifi"));
+                zivali =  Integer.parseInt(data.get(i).get("pet_allowed"));
+                parkirni =  Integer.parseInt(data.get(i).get("parking"));
+                hrana =  Integer.parseInt(data.get(i).get("food"));
+                telovadba =  Integer.parseInt(data.get(i).get("fitness"));
 
                 Intent intent = new Intent(getActivity(), Reserve.class);
                 startActivity(intent);
@@ -182,6 +188,11 @@ public class All extends Fragment {
                     String img1 = jsonObject.getString("img1");
                     String img2 = jsonObject.getString("img2");
                     String id = jsonObject.getString("id");
+                    String wifi = jsonObject.getString("wifi");
+                    String pet_allowed = jsonObject.getString("pet_allowed");
+                    String parking = jsonObject.getString("parking");
+                    String food = jsonObject.getString("food");
+                    String fitness = jsonObject.getString("fitness");
                     HashMap<String, String> map = new HashMap<>();
                     if(MainActivity.iskanje && MainActivity.iskanihotel != "" && name.toLowerCase().contains(MainActivity.iskanihotel.toLowerCase())) {
                         map.put("name", name);
@@ -192,6 +203,11 @@ public class All extends Fragment {
                         map.put("img1", img1);
                         map.put("img2", img2);
                         map.put("id", id);
+                        map.put("wifi", wifi);
+                        map.put("pet_allowed", pet_allowed);
+                        map.put("parking", parking);
+                        map.put("food", food);
+                        map.put("fitness", fitness);
                         data.add(map);
                     }
                     else if (MainActivity.iskanje == false){
@@ -203,6 +219,11 @@ public class All extends Fragment {
                         map.put("img1", img1);
                         map.put("img2", img2);
                         map.put("id", id);
+                        map.put("wifi", wifi);
+                        map.put("pet_allowed", pet_allowed);
+                        map.put("parking", parking);
+                        map.put("food", food);
+                        map.put("fitness", fitness);
                         data.add(map);
                     }
                 } catch (JSONException e) {

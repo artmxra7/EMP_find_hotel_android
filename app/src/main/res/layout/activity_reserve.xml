@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="81dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="imehotela"
-                android:textSize="17dp" />
+                android:textSize="23dp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="lokacija"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -71,29 +71,31 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:orientation="horizontal">
+                    android:layout_height="200dp"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/slika1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:gravity="center" />
 
                     <Space
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp" />
 
                     <ImageView
                         android:id="@+id/slika2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:gravity="center" />
                 </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="15dp" />
+                    android:layout_height="25dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -109,35 +111,55 @@
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="15dp" />
+                        android:layout_height="25dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <ImageSwitcher
-                        android:id="@+id/ponudbaslike"
-                        android:layout_width="456dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    </ImageSwitcher>
+                    <ImageView
+                        android:id="@+id/prva"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
 
                     <Space
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent" />
-
-                    <Button
-                        android:id="@+id/naslednjaslika"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/colorPrimary"
-                        android:text="What we offer" />
+                        android:layout_height="10dp" />
 
+                    <ImageView
+                        android:id="@+id/druga"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <ImageView
+                        android:id="@+id/tretja"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <ImageView
+                        android:id="@+id/cetrta"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <ImageView
+                        android:id="@+id/peta"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -3,6 +3,7 @@ package com.emp.findhotel.findhotel;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -36,12 +37,10 @@ public class Reserve extends AppCompatActivity{
     private RatingBar ocena;
     private ImageView slika1;
     private ImageView slika2;
+    private ImageView prva, druga, tretja, cetrta, peta;
     private TextView opis;
-    private Button naslednja_slika;
-    private ImageSwitcher ponudba_slike;
     private Button rezerviraj;
     int st = 0;
-    Integer [] slike = {R.drawable.parking, R.drawable.pet, R.drawable.wifi};
     private int photoNumb;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -55,16 +54,117 @@ public class Reserve extends AppCompatActivity{
         imehotela = (TextView) findViewById(R.id.imehotela);
         imehotela.setText(All.ime);
 
+        lokacija = (TextView) findViewById(R.id.lokacija);
+        lokacija.setText(All.naslov);
 
-        imehotela = (TextView) findViewById(R.id.lokacija);
-        imehotela.setText(All.naslov);
+        rezerviraj = (Button) findViewById(R.id.rezerviraj);
 
         ocena = (RatingBar) findViewById(R.id.ocena);
         ocena.setRating(All.ocena);
 
-
         slika1 = (ImageView) findViewById(R.id.slika1);
         slika2 = (ImageView) findViewById(R.id.slika2);
+
+        prva = (ImageView) findViewById(R.id.prva);
+        druga = (ImageView) findViewById(R.id.druga);
+        tretja = (ImageView) findViewById(R.id.tretja);
+        cetrta = (ImageView) findViewById(R.id.cetrta);
+        peta = (ImageView) findViewById(R.id.peta);
+
+        if(All.wifi == 1){
+            st++;
+            if(st == 1)
+                prva.setImageResource(R.drawable.wifi);
+            else if(st == 2)
+                druga.setImageResource(R.drawable.wifi);
+            else if(st == 3)
+                tretja.setImageResource(R.drawable.wifi);
+            else if(st == 4)
+                cetrta.setImageResource(R.drawable.wifi);
+            else if(st == 5)
+                peta.setImageResource(R.drawable.wifi);
+        }
+
+        if(All.zivali == 1){
+            st++;
+            if(st == 1)
+                prva.setImageResource(R.drawable.pet);
+            else if(st == 2)
+                druga.setImageResource(R.drawable.pet);
+            else if(st == 3)
+                tretja.setImageResource(R.drawable.pet);
+            else if(st == 4)
+                cetrta.setImageResource(R.drawable.pet);
+            else if(st == 5)
+                peta.setImageResource(R.drawable.pet);
+        }
+
+        if(All.parkirni == 1){
+            st++;
+            if(st == 1)
+                prva.setImageResource(R.drawable.parking);
+            else if(st == 2)
+                druga.setImageResource(R.drawable.parking);
+            else if(st == 3)
+                tretja.setImageResource(R.drawable.parking);
+            else if(st == 4)
+                cetrta.setImageResource(R.drawable.parking);
+            else if(st == 5)
+                peta.setImageResource(R.drawable.parking);
+        }
+
+        if(All.hrana == 1){
+            st++;
+            if(st == 1)
+                prva.setImageResource(R.drawable.food);
+            else if(st == 2)
+                druga.setImageResource(R.drawable.food);
+            else if(st == 3)
+                tretja.setImageResource(R.drawable.food);
+            else if(st == 4)
+                cetrta.setImageResource(R.drawable.food);
+            else if(st == 5)
+                peta.setImageResource(R.drawable.food);
+        }
+
+        if(All.telovadba == 1){
+            st++;
+            if(st == 1)
+                prva.setImageResource(R.drawable.fitness);
+            else if(st == 2)
+                druga.setImageResource(R.drawable.fitness);
+            else if(st == 3)
+                tretja.setImageResource(R.drawable.fitness);
+            else if(st == 4)
+                cetrta.setImageResource(R.drawable.fitness);
+            else if(st == 5)
+                peta.setImageResource(R.drawable.fitness);
+        }
+
+        if(st == 0){
+            prva.setVisibility(View.GONE);
+            druga.setVisibility(View.GONE);
+            tretja.setVisibility(View.GONE);
+            cetrta.setVisibility(View.GONE);
+            peta.setVisibility(View.GONE);
+        }
+        else if(st == 1){
+            druga.setVisibility(View.GONE);
+            tretja.setVisibility(View.GONE);
+            cetrta.setVisibility(View.GONE);
+            peta.setVisibility(View.GONE);
+        }
+        else if(st == 2) {
+            tretja.setVisibility(View.GONE);
+            cetrta.setVisibility(View.GONE);
+            peta.setVisibility(View.GONE);
+        }
+        else if(st == 3) {
+            cetrta.setVisibility(View.GONE);
+            peta.setVisibility(View.GONE);
+        }
+        else if(st == 4)
+            peta.setVisibility(View.GONE);
 
         photoNumb = 1;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -79,36 +179,8 @@ public class Reserve extends AppCompatActivity{
                 ImageView.ScaleType.CENTER, Bitmap.Config.ARGB_8888, errorListener);
         requestQueue.add(request);
 
-
         opis = (TextView) findViewById(R.id.opis);
         opis.setText(All.opis);
-
-        naslednja_slika = (Button) findViewById(R.id.naslednjaslika);
-
-        ponudba_slike = (ImageSwitcher) findViewById(R.id.ponudbaslike);
-        rezerviraj = (Button) findViewById(R.id.rezerviraj);
-
-        ponudba_slike.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView(){
-                ImageView imageView = new ImageView(getApplicationContext());
-                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                return imageView;
-            }
-        });
-
-        ponudba_slike.setImageResource(slike[st]);
-
-        naslednja_slika.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(st + 1 == slike.length)
-                    st = 0;
-                else
-                    st += 1;
-                ponudba_slike.setImageResource(slike[st]);
-            }
-        });
 
         rezerviraj.setOnClickListener(new View.OnClickListener() {
             @Override
