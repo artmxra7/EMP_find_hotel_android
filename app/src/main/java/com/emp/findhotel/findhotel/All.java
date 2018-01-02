@@ -42,7 +42,7 @@ public class All extends Fragment {
     private Spinner sort_spinner;
     private Spinner drzava_spiner;
     private ListView hoteli;
-    private ArrayList<HashMap<String, String>> data = null;
+    public static ArrayList<HashMap<String, String>> data = null;
     private RequestQueue requestQueue;
     private JsonArrayRequest request;
 
