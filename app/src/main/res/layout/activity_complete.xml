@@ -160,13 +160,26 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent" />
 
-            <TextView
-                android:id="@+id/ponudbasobe"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="ponudbasobe"
-                android:textSize="13dp" />
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/ponudbasobe"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="ponudbasobe"
+                        android:textSize="13dp" />
+                </LinearLayout>
+            </ScrollView>
+
         </LinearLayout>
 
         <Space
